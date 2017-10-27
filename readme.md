@@ -1,12 +1,12 @@
-# Learn Redux
+# POSTCARDS
 
-A simple React + Redux implementation. This will be turned into a free video series once the app is totally fleshed out.
+An application to create POSTCARDS where you can choose from an image gallery and apply filters by editing the CSS properties or upload your own image. As a result you export a vintage postcard with customized text, styles and instagram user.
 
 ## Running
 
-First `npm install` to grab all the necessary dependencies. 
+First `npm install` to grab all the necessary dependencies.
 
-Then run `npm start` and open <localhost:7770> in your browser.
+Then run `npm start` and open <localhost:8000> in your browser.
 
 ## Production Build
 
