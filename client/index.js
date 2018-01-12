@@ -32,7 +32,7 @@ const router = (
         <Route path="/albums" component={Albums}></Route>
         <Route path="/collections" component={Collections}></Route>
         <Route path="/contact" component={Contact}></Route>
-        <Route path="gallery/view/:postId" component={Single}></Route>
+        <Route path="gallery/view/:imgID" component={Single}></Route>
         <Route path="gallery/uploaded" onEnter={isImageUploaded} component={SingleUploaded}></Route>
       </Route>
     </Router>

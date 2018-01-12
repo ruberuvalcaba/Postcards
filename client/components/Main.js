@@ -7,9 +7,6 @@ export default class Main extends React.Component {
   constructor(props){
     super(props);
   }
-  componentWillMount() {
-    this.props.getMedia('./getMedia');
-  }
 
   // Script to open and close sidebar
   openMenu() {

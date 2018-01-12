@@ -58,7 +58,7 @@ app.get('/handleauth', exports.handleauth);
 app.get('/getUserInfo', function(req, res){
   ig.user(userId, function(err, result, remaining, limit) {
     if(err) {
-      console.log(err);
+      console.log("Error: " + err);
       res.send(500)
     }
     res.send(result);
@@ -68,7 +68,9 @@ app.get('/getUserInfo', function(req, res){
 app.get('/getMedia', function(req, res){
    //create a new instance of the use method which contains the access token gotten
     ig.user_media_recent(userId, function(err, result, pagination, remaining, limit) {
-        if(err) res.json(err);
+        if(err) {
+          console.log("Error: " + err);
+        }
         res.send(result);
      // pass the json file gotten to our ejs template
         //res.render('pages/index', { media : result });

@@ -2,9 +2,17 @@ import React from 'react';
 import Photo from './Photo';
 
 export default class Gallery extends React.Component {
-  render() {
-    const media = this.props.media;
 
+  componentWillMount() {
+    if(typeof localStorage.getItem('media') === 'undefined') {
+      this.props.getMedia('./getMedia');
+    }
+  }
+
+  render() {
+    const localStorage_media = localStorage.getItem("media");
+    const local_media = JSON.parse(localStorage_media);
+    const media = (local_media.length > 0) ? local_media : this.props.media;
     return (
       <div>
         { media  &&

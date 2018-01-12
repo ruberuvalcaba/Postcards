@@ -3,16 +3,19 @@ import Photo from './Photo';
 import Editor from './Editor';
 
 export default class Single extends React.Component {
+
   render() {
-    const { postId } = this.props.params;
-    // index of the post
-    const i = this.props.posts.findIndex((post) => post.code === postId);
-    // get us the post
-    const post = this.props.posts[i];
+    const localStorage_media = localStorage.getItem("media");
+    const local_media = JSON.parse(localStorage_media);
+    const arr_media = (local_media.length > 0) ? local_media : this.props.media;
+    const { imgID } = this.props.params;
+    const i = arr_media.findIndex((media) => media.id === imgID);
+    const media = arr_media[i];
+
     return(
       <div className="single-photo">
-        <Photo i={i} post={post} {...this.props} />
-        <Editor i={i} post={post} {...this.props} />
+        <Photo i={i} media={media} />
+        <Editor i={i} media={media} {...this.props} />
       </div>
     );
   }

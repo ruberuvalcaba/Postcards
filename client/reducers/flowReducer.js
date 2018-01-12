@@ -1,5 +1,5 @@
 
-const INITIAL_STATE = {}
+const INITIAL_STATE = []
 const flowReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'UPLOAD_IMAGE':
