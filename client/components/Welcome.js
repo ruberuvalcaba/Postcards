@@ -12,7 +12,7 @@ export default class Welcome extends React.Component {
         </video>
         <h1>Postalpost</h1>
         <p className="lead">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-        <Link to="/gallery" className="btn btn-lg btn-success">Get started</Link>
+        <a href="/authorize_user" className="btn btn-lg btn-success">Get started</a>
       </div>
     );
   }

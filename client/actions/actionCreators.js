@@ -1,27 +1,11 @@
-// increment
-export const increment = (index) => {
-  return {
-    type: 'INCREMENT_LIKES',
-    index
-  }
-}
+import axios from 'axios';
 
-// add comment
-export const addComment = (postId, author, comment) => {
+// Fetch Media
+export const getMedia = (url) => {
   return {
-    type: 'ADD_COMMENT',
-    postId,
-    author,
-    comment
-  }
-}
-
-// remove comment
-export const removeComment = (postId, i) => {
-  return {
-    type: 'REMOVE_COMMENT',
-    postId,
-    i
+    type: 'GET_MEDIA',
+    promise: axios.get(url),
+    fetch: 'media'
   }
 }
 

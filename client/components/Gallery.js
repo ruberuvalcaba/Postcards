@@ -3,9 +3,15 @@ import Photo from './Photo';
 
 export default class Gallery extends React.Component {
   render() {
-    return(
-      <div className="photo-grid">
-        {this.props.posts.map((post, i) => <Photo {...this.props} key={i} i={i} post={post} />)}
+    const media = this.props.media;
+
+    return (
+      <div>
+        { media  &&
+          <div className="photo-grid">
+            {media.map((media, i) => <Photo {...this.props} key={i} i={i} media={media} />)}
+          </div>
+        }
       </div>
     );
   }

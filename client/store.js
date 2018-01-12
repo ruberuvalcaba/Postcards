@@ -1,25 +1,17 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 
 // import the root reducer
 import rootReducer from './reducers/index';
-
-// import data
-//import comments from './data/comments';
-import posts from './data/posts';
-
-// create an object for the default data
-const defaultState = {
-  posts
-  //comments
-}
+//import middleware
+import  fetchMiddleware  from './fetchMiddleware.js';
 // Installs Redux dev tools
 const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 /* END Installs Redux dev tools */
-const store = createStore(rootReducer, defaultState, enhancers);
+const store = createStore(rootReducer, enhancers, applyMiddleware(fetchMiddleware));
 export const history = syncHistoryWithStore(browserHistory, store);
 
 // Hot reloading Redux reducer with webpack

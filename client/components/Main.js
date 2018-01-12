@@ -6,10 +6,11 @@ import mainIcon from '../assets/postalpost-icon.svg';
 export default class Main extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-
-    }
   }
+  componentWillMount() {
+    this.props.getMedia('./getMedia');
+  }
+
   // Script to open and close sidebar
   openMenu() {
       document.getElementById("mySidebar").style.display = "block";
