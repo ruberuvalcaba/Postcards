@@ -1,5 +1,6 @@
 import React from 'react';
 import Photo from './Photo';
+import getLocalMedia from '../config/getLocalStorageMedia.js';
 
 export default class Gallery extends React.Component {
 
@@ -10,8 +11,7 @@ export default class Gallery extends React.Component {
   }
 
   render() {
-    const localStorage_media = localStorage.getItem("media");
-    const local_media = JSON.parse(localStorage_media);
+    const local_media = getLocalMedia();
     const media = (local_media.length > 0) ? local_media : this.props.media;
     return (
       <div>
