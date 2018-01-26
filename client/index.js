@@ -19,10 +19,6 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store, { history } from './store';
 
-const isImageUploaded = () => {
-  console.log(store);
-};
-
 const router = (
   <Provider store={store}>
     <Router history={history}>
@@ -33,7 +29,7 @@ const router = (
         <Route path="/collections" component={Collections}></Route>
         <Route path="/contact" component={Contact}></Route>
         <Route path="gallery/view/:imgID" component={Single}></Route>
-        <Route path="gallery/uploaded" onEnter={isImageUploaded} component={SingleUploaded}></Route>
+        <Route path="gallery/uploaded/:imgID" component={SingleUploaded}></Route>
       </Route>
     </Router>
   </Provider>

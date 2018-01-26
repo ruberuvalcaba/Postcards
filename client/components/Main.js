@@ -6,6 +6,14 @@ import mainIcon from '../assets/postalpost-icon.svg';
 export default class Main extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      fileInputName: "Select a file...",
+      showUploadBtn: false
+    };
+    this.fileInputIndex = 0;
+    this.fileInputID = "fileInput";
+    this.onChnageFileInput = this.onChnageFileInput.bind(this);
+    this.callUploadImage = this.callUploadImage.bind(this);
   }
 
   // Script to open and close sidebar
@@ -20,32 +28,51 @@ export default class Main extends React.Component {
       document.getElementById("myOverlay").style.display = "none";
   }
 
-  handleFileSelect() {
-    var file = document.getElementById('imgFile').files[0]; // FileList object
-   // Loop through the FileList and render image files as thumbnails.
-   //for (var i = 0, f; f = files[i]; i++) {
-     // Only process image files.
-     if (file.type.match('image.*')) {
-       let reader = new FileReader();
-       // Closure to capture the file information.
-       reader.onload = (theFile => {
-         return (e) => {
-            // Render thumbnail.
-            let span = document.createElement('span');
-            span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                          '" title="', escape(theFile.name), '"/>'].join('');
-            document.getElementById('list').insertBefore(span, null);
-          };
-        })(file);
-        // Read in the image file as a data URL.
-        reader.readAsDataURL(file);
-     } else {
-       alert('Try again');
-     }
-  //  }
+  // handleFileSelect() {
+  //   console.log('load img');
+  //   var file = document.getElementById('imgFile').files[0]; // FileList object
+  //  // Loop through the FileList and render image files as thumbnails.
+  //  //for (var i = 0, f; f = files[i]; i++) {
+  //    // Only process image files.
+  //    if (file.type.match('image.*')) {
+  //      let reader = new FileReader();
+  //      // Closure to capture the file information.
+  //      reader.onload = (theFile => {
+  //        return (e) => {
+  //           // Render thumbnail.
+  //           let span = document.createElement('span');
+  //           span.innerHTML = ['<img class="thumb" src="', e.target.result,
+  //                         '" title="', escape(theFile.name), '"/>'].join('');
+  //           document.getElementById('list').insertBefore(span, null);
+  //         };
+  //       })(file);
+  //       // Read in the image file as a data URL.
+  //       reader.readAsDataURL(file);
+  //    } else {
+  //      alert('Select different image format');
+  //    }
+  // //  }
+  // }
+  onChnageFileInput(e) {
+    let fileName = e.target.value.split("\\");
+        fileName = fileName[fileName.length - 1];
+    this.setState({
+      fileInputName: `File: ${fileName}`,
+      showUploadBtn: true
+    });
+  }
+
+  callUploadImage() {
+    this.setState({
+      fileInputName: "Select a file...",
+      showUploadBtn: false
+    }, this.fileInputIndex ++);
+    this.props.uploadImage(`${this.fileInputID}_${this.fileInputIndex}`);
   }
 
   render() {
+    const { fileInputName, showUploadBtn } = this.state;
+    const fileInputID = `${this.fileInputID}_${this.fileInputIndex}`;
     const colmd = (location.pathname !== '/') ? 'col-md-10 main' : 'col-md-12 main';
     return(
       <div className="row">
@@ -58,15 +85,25 @@ export default class Main extends React.Component {
         { (location.pathname !== '/') &&
           <nav className="col-md-2 sidebar animation-left" id="mySidebar">
             <ul className="nav nav-sidebar">
-              <li><Link to="/" className=""><img src={mainIcon}/></Link></li>
+              <li>
+                <Link to="/">
+                  <p className="app-title">PodCard</p>
+                  <img className="app-icon" src={mainIcon}/>
+                </Link>
+              </li>
               <li><Link to="/gallery" activeClassName="active">GALLERY</Link></li>
               <li><Link to="/albums" activeClassName="active">ALBUMS</Link></li>
               <li><Link to="/collections" activeClassName="active">COLLECTIONS</Link></li>
               <li><Link to="/contact" activeClassName="active">CONTACT</Link></li>
               <li className="link-upload">
                 <p>Create your own Postcard now</p>
-                <input type="file" id="inputFile" name="files[]" multiple />
-                <Link to="/gallery/uploaded" className="btn btn-default" onClick={this.props.uploadImage.bind(null, 'inputFile')}>Upload image</Link>
+                <div className="link-upload-content">
+                  <input type="file" id={fileInputID} name="files[]" className="input-file" multiple onChange={this.onChnageFileInput}/>
+                  <label htmlFor={fileInputID} className="input-file-trigger btn btn-default">{ fileInputName }</label>
+                  { showUploadBtn &&
+                    <Link to={`/gallery/uploaded/${fileInputID}`} onClick={this.callUploadImage}><span className="link-upload-arrow" aria-hidden="true"></span></Link>
+                  }
+                </div>
               </li>
             </ul>
           </nav>

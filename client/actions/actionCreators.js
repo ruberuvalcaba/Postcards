@@ -9,9 +9,9 @@ export const getMedia = (url) => {
   }
 }
 
-export const uploadImage = (inputId) => {
+export const uploadImage = (mediaID) => {
   return {
     type: 'UPLOAD_IMAGE',
-    inputId
+    mediaID
   }
 }

@@ -6,19 +6,22 @@ export default class Photo extends React.Component {
 
   render() {
     const { media, i, resolution } = this.props;
+    let divStyle = {
+      backgroundImage: 'url(' + media.images.standard_resolution.url + ')',
+      backgroundSize: 'cover'
+    }
     return(
-      <figure id="gridFigure" className="grid-figure">
-        <div className="grid-photo-wrap">
-          <Link to={`gallery/view/${media.id}`}>
+      <figure className="grid-figure">
+        <Link to={`gallery/view/${media.id}`}>
+          <div className="grid-photo-wrap" style={divStyle}>
             <img
               src={media.images.standard_resolution.url}
               alt=''
               className="grid-photo"
               id={`image_${i}`}
               crossOrigin="anonymous"/>
-          </Link>
-          <canvas id="myCanvas" crossOrigin="anonymous" width="0" height="0"></canvas>
-        </div>
+          </div>
+        </Link>
       </figure>
     );
   }

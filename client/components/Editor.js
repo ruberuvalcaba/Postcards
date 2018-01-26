@@ -42,9 +42,11 @@ class Editor extends React.Component {
   }
 
   createCanvas() {
-    let [x, y, footer] = [0];
+    let [x, y, footer] = [0, 0, 0];
     //let [x, y, tx, ty] = [0, 0, 0, 0];
-    let canvas = document.getElementById("myCanvas");
+    let canvasId = `canvas_${this.props.i}`;
+    //let canvas = document.getElementById(canvasId);
+    let canvas = document.getElementById("canvasContent");
     //let instagramNode = document.getElementById("instagram");
     let imgID = `image_${this.props.i}`;
     let img = document.getElementById(imgID);
@@ -66,7 +68,7 @@ class Editor extends React.Component {
       footer = 80;
       //[x, y, tx, ty] = [30, 5, 0, 60];
     }
-    canvas.setAttribute('width', img.width + 200);
+    canvas.setAttribute('width', img.width);
     canvas.setAttribute('height', img.height + footer);
     let ctx = canvas.getContext("2d");
     ctx.fillStyle = "#fff"
@@ -92,7 +94,7 @@ class Editor extends React.Component {
       editorClass: 'ditor hidden'
     });
 
-    this.download(canvas);
+    //this.download(canvas);
   }
 
   download(canvas) {

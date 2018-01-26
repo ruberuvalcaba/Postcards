@@ -29,7 +29,10 @@ ig.use({
 //access_token=1100019683.842ad45.7adf1739782242df86f322df4d7f4f89
 
 exports.authorize_user = function(req, res) {
-  res.redirect(ig.get_authorization_url(redirect_uri, { scope: ['public_content', 'likes'], state: 'true' }));
+  if(typeof accessToken === 'undefined')
+    res.redirect(ig.get_authorization_url(redirect_uri, { scope: ['public_content', 'likes'], state: 'true' }));
+  else
+    res.redirect('/gallery');
 };
 
 exports.handleauth = function(req, res) {
@@ -66,22 +69,47 @@ app.get('/getUserInfo', function(req, res){
 });
 
 app.get('/getMedia', function(req, res){
-   //create a new instance of the use method which contains the access token gotten
-    ig.user_media_recent(userId, function(err, result, pagination, remaining, limit) {
-        if(err) {
-          console.log("Error: " + err);
-        }
+  var total = 0;
+  var hdl = function(err, result, pagination, remaining, limit) {
+      if(err) {
+        console.log("Error: ", err.message, err.stack);
+      } else {
         res.send(result);
-     // pass the json file gotten to our ejs template
-        //res.render('pages/index', { media : result });
-    });
+      }
+  };
+  ig.user_media_recent(userId, { min_timestamp: 0 }, hdl);
 });
-//-----------------------------------------
+
+// app.get('/getMedia', function(req, res){
+//   var total = 0;
+//   var hdl = function(err, result, pagination, remaining, limit) {
+//       if(err) {
+//         console.log("Error: ", err.message, err.stack);
+//       } else {
+//         console.log('Pagination: ', pagination.next);
+//         console.log('remaining: ', remaining);
+//         console.log('limit: ', limit);
+//         result.forEach(function(media){
+//           total ++;
+//           console.log(media.id);
+//         });
+//         if(pagination.next){
+//           pagination.next(hdl);
+//         }else {
+//           console.log('Total media: ', total);
+//           res.send(result);
+//         }
+//       }
+//   };
+//   //create a new instance of the use method which contains the access token gotten
+//   ig.user_media_recent(userId, { count:5, max_id: '15535441_1226698387421563'}, hdl);
+// });
+
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(8000, 'localhost', function(err) {
+app.listen(8000, '0.0.0.0', function(err) {
   if (err) {
     console.log(err);
     return;

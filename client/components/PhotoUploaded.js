@@ -2,15 +2,30 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default class PhotoUploaded extends React.Component {
-  
-  componentWillMount() {
-    if(typeof this.props.inputId === 'undefined'){
-      this.props.history.push('/gallery');
-    }
-  }
+
+  // componentWillMount() {
+  //   if(typeof this.props.uploadedMediaID === 'undefined'){
+  //     this.props.history.push('/gallery');
+  //   }
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if(nextProps.uploadedMediaID !== this.props.uploadedMediaID) return true;
+  //   else return false;
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if(nextProps.uploadedMediaID !== this.props.uploadedMediaID) return true;
+  //   else return false;
+  // }
 
   handleFileSelect() {
-    let id = this.props.inputId;
+    let parentNode = document.getElementById("loadImg")
+    if(parentNode !== null) {
+      let last;
+      while (last = parentNode.lastChild) parentNode.removeChild(last);
+    }
+    let id = this.props.uploadedMediaID;
     let file = document.getElementById(id).files[0]; // FileList object
    // Loop through the FileList and render image files as thumbnails.
    //for (var i = 0, f; f = files[i]; i++) {
@@ -21,7 +36,7 @@ export default class PhotoUploaded extends React.Component {
       reader.onload = (theFile => {
          return (e) => {
             // Render thumbnail.
-            let span = document.createElement('span');
+            let span = document.createElement('div');
             span.innerHTML = ['<img class="grid-photo" src="', e.target.result,
                           '" title="', escape(theFile.name), '" alt="', escape(theFile.name), '" id="image_',id,'" crossOrigin="anonymous" /> '].join('');
             document.getElementById('loadImg').insertBefore(span, null);
@@ -30,17 +45,16 @@ export default class PhotoUploaded extends React.Component {
         // Read in the image file as a data URL.
         reader.readAsDataURL(file);
      } else {
-       alert('Try again');
+       alert('Select an image');
      }
   //  }
   }
 
   render() {
     return(
-      <figure id="gridFigure" className="grid-figure">
+      <figure className="grid-figure">
         <div className="grid-photo-wrap" id="loadImg">
           {this.handleFileSelect()}
-          <canvas id="myCanvas" crossOrigin="anonymous" width="0" height="0"></canvas>
         </div>
       </figure>
     );

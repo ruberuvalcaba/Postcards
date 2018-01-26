@@ -4,10 +4,11 @@ import Editor from './Editor';
 
 export default class SingleUploaded extends React.Component {
   render() {
-    const id = this.props.uploaded.inputId;
+    const id = this.props.uploadedMediaID;
     return(
       <div className="single-photo">
-        <PhotoUploaded inputId={id} {...this.props} />
+        <PhotoUploaded uploadedMediaID={id} {...this.props} />
+        <canvas id="canvasContent" crossOrigin="anonymous" width="0" height="0"></canvas>
         <Editor i={id} {...this.props} />
       </div>
     );

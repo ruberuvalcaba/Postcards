@@ -5,14 +5,15 @@ import getLocalMedia from '../config/getLocalStorageMedia.js';
 export default class Gallery extends React.Component {
 
   componentWillMount() {
-    if(typeof localStorage.getItem('media') === 'undefined') {
+    //if(getLocalMedia() === null) {
       this.props.getMedia('./getMedia');
-    }
+    //}
   }
 
   render() {
-    const local_media = getLocalMedia();
-    const media = (local_media.length > 0) ? local_media : this.props.media;
+    //const local_media = getLocalMedia();
+    //const media = (local_media !== null) ? local_media : this.props.media;
+    const media = this.props.media;
     return (
       <div>
         { media  &&

@@ -2,15 +2,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 import Main from './Main';
+import getLocalMedia from '../config/getLocalStorageMedia.js';
 
 function mapStateToProps(state) {
-
-  if(typeof localStorage.getItem('media') === 'undefined') {
-    localStorage.setItem("media", JSON.stringify(state.flowReducer.media));
-  }
-
   return {
-    media: state.flowReducer.media
+    media: state.flowReducer.media,
+    uploadedMediaID: state.flowReducer.mediaID
   }
 }
 
