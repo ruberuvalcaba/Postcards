@@ -341,8 +341,16 @@ video {
   font-style: normal;
   font-weight: normal;*/
 }
-
-
+.loading-overlay {
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  text-align: center;
+  left: 0;
+  background: #DC5C5C7a;
+  padding: 20%;
+  z-index: 999999999;
+}
 
 
 .fr {

@@ -25,7 +25,7 @@ export default class PhotoUploaded extends React.Component {
       let last;
       while (last = parentNode.lastChild) parentNode.removeChild(last);
     }
-    let id = this.props.uploadedMediaID;
+    let id = this.props.params.imgID;
     let file = document.getElementById(id).files[0]; // FileList object
    // Loop through the FileList and render image files as thumbnails.
    //for (var i = 0, f; f = files[i]; i++) {

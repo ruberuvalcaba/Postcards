@@ -1,6 +1,10 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { browserHistory } from 'react-router';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+//import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+
 
 // import the root reducer
 import rootReducer from './reducers/index';
@@ -11,7 +15,15 @@ const enhancers = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 /* END Installs Redux dev tools */
-const store = createStore(rootReducer, enhancers, applyMiddleware(fetchMiddleware));
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+  blacklist: ['routing']
+}
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer, enhancers, applyMiddleware(fetchMiddleware));
+
+export const persistor = persistStore(store);
 export const history = syncHistoryWithStore(browserHistory, store);
 
 // Hot reloading Redux reducer with webpack
