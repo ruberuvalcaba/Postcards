@@ -17,7 +17,7 @@ import Contact from './components/Contact';
 import LoadingPage from './components/LoadingPage';
 
 // import react router deps
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
 import store, { history, persistor } from './store';
 
@@ -33,11 +33,11 @@ const router = (
           <Route path="/collections" component={Collections}></Route>
           <Route path="/contact" component={Contact}></Route>
           <Route path="gallery/view/:imgID" component={Single}></Route>
-          <Route path="/uploaded/:imgID" component={SingleUploaded}></Route>
+          <Route path="/uploaded" component={SingleUploaded}></Route>
           <Route path="/loading" component={LoadingPage}></Route>
+          <Redirect path="*" to="/gallery" />
         </Route>
         </PersistGate>
-
     </Router>
   </Provider>
 )

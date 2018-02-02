@@ -6,7 +6,7 @@ import Main from './Main';
 function mapStateToProps(state) {
   return {
     media: state.flowReducer.media,
-    uploadedMediaID: state.flowReducer.mediaID
+    uploadedMedia: state.flowReducer.uploadedMedia
   }
 }
 

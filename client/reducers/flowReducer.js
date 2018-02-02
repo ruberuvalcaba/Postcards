@@ -5,7 +5,7 @@ const flowReducer = (state = INITIAL_STATE, action) => {
     case 'UPLOAD_IMAGE':
       return {
         ...state,
-        mediaID: action.mediaID
+        uploadedMedia: action.media
       };
       break;
     case 'GET_MEDIA':

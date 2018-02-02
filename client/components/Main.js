@@ -23,7 +23,6 @@ export default class Main extends React.Component {
   }
 
   closeMenu() {
-    console.log('close');
       document.getElementById("mySidebar").style.display = "none";
       document.getElementById("myOverlay").style.display = "none";
   }
@@ -38,22 +37,24 @@ export default class Main extends React.Component {
   }
 
   callUploadImage() {
+    let fileInputID = `${this.fileInputID}_${this.fileInputIndex}`;
+    let media = document.getElementById(fileInputID).files[0] || null;
     this.setState({
       fileInputName: "Select a file...",
       showUploadBtn: false
     }, this.fileInputIndex ++);
-    this.props.uploadImage(`${this.fileInputID}_${this.fileInputIndex}`);
+    this.props.uploadImage(media);
   }
 
   render() {
     const { fileInputName, showUploadBtn } = this.state;
-    const fileInputID = `${this.fileInputID}`;
+    const fileInputID = `${this.fileInputID}_${this.fileInputIndex}`;
     const colmd = (location.pathname !== '/') ? 'col-md-10 main' : 'col-md-12 main';
     return(
       <div className="row">
         {/* Top menu on small screens */}
         <header className="main-header">
-          <span className="">POSTALPOST</span>
+          <span className="">PODCARDS</span>
           <a href="javascript:void(0)" className="btn btn-default fr" onClick={this.openMenu}>☰</a>
         </header>
         {/* Sidebar/menu */}
@@ -76,7 +77,13 @@ export default class Main extends React.Component {
                   <input type="file" id={fileInputID} name="files[]" className="input-file" multiple onChange={this.onChnageFileInput}/>
                   <label htmlFor={fileInputID} className="input-file-trigger btn btn-default">{ fileInputName }</label>
                   { showUploadBtn &&
-                    <Link to={`/uploaded/${fileInputID}`} onClick={this.callUploadImage}><span className="link-upload-arrow" aria-hidden="true"></span></Link>
+                    <Link to={{
+                        pathname: '/uploaded',
+                        search: '?utm=your+face'
+                      }}
+                      onClick={this.callUploadImage}>
+                      <span className="link-upload-arrow" aria-hidden="true"></span>
+                    </Link>
                   }
                 </div>
               </li>

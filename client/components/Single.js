@@ -2,8 +2,13 @@ import React from 'react';
 import Photo from './Photo';
 import Editor from './Editor';
 import LoadingPage from './LoadingPage';
+import { addReloadListener, removeReloadListener } from '../util/onBeforeUnload.js';
 
 export default class Single extends React.Component {
+
+  componentWillMount() {
+    addReloadListener();
+  }
 
   render() {
     const arr_media = this.props.media || [];
@@ -21,5 +26,9 @@ export default class Single extends React.Component {
     }else {
       return <LoadingPage />;
     }
+  }
+
+  componentWillUnmount() {
+    removeReloadListener();
   }
 }

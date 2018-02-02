@@ -1,14 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
 
 export default class PhotoUploaded extends React.Component {
-
-  // componentWillMount() {
-  //   if(typeof this.props.uploadedMediaID === 'undefined'){
-  //     this.props.history.push('/gallery');
-  //   }
-  // }
-
   // componentWillReceiveProps(nextProps) {
   //   if(nextProps.uploadedMediaID !== this.props.uploadedMediaID) return true;
   //   else return false;
@@ -25,8 +17,9 @@ export default class PhotoUploaded extends React.Component {
       let last;
       while (last = parentNode.lastChild) parentNode.removeChild(last);
     }
-    let id = this.props.params.imgID;
-    let file = document.getElementById(id).files[0]; // FileList object
+    //let id = this.props.params.imgID;
+    //let file = document.getElementById(id).files[0]; // FileList object
+    const { file, id } = this.props;
    // Loop through the FileList and render image files as thumbnails.
    //for (var i = 0, f; f = files[i]; i++) {
      // Only process image files.
